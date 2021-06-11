@@ -1,0 +1,6 @@
+POST http://localhost:3000/api/inputs
+{
+  "id":"1623423285",
+  "url": "http://google.com",
+  "description": "this is a test"
+}
