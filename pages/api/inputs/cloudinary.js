@@ -1,5 +1,4 @@
 import nc from "next-connect";
-import { withSentry } from "@sentry/nextjs";
 
 import schema from "../../../src/schemas/cloudinary";
 import toNotion from "../../../src/inputs/notion/post";
@@ -21,18 +20,18 @@ const middleware = async (req, res, next) => {
 
 const handler = nc().use(middleware).post(toNotion);
 
-export default withSentry(handler);
+export default handler;
 
 function normalize(data) {
   return {
-    timestamp: data.originalFileName,
-    description: data.metadata.metadataOcr,
-    url: data.metadata.metadataUrl,
+    timestamp: data.original_filename,
+    description: data.metadata.metadata_ocr,
+    url: data.metadata.metadata_url,
     database: data.database,
     initiator: {
       which: "cloudinary",
-      imageUrl: data.secureUrl,
-      id: data.assetId,
+      imageUrl: data.secure_url,
+      id: data.asset_id,
     },
   };
 }

@@ -1,14 +1,12 @@
 import { object, string } from "yup";
 
-export default object()
-  .camelCase()
-  .shape({
-    originalFileName: string().required(),
-    assetId: string().required(),
-    secureUrl: string().url().required(),
-    database: string().required(),
-    metadata: object().camelCase().shape({
-      metadataUrl: string().url().required(),
-      metadataOcr: string().optional(),
-    }),
-  });
+export default object().shape({
+  original_filename: string().required(),
+  asset_id: string().required(),
+  secure_url: string().url().required(),
+  database: string().required(),
+  metadata: object().shape({
+    metadata_url: string().url().required(),
+    metadata_ocr: string().optional(),
+  }),
+});

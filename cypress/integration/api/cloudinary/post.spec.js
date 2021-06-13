@@ -10,7 +10,7 @@ describe("Cloudinary POST requests", () => {
       method: "POST",
       url: "/api/inputs/cloudinary?database=4b0646182c5f4af09cea65567314260e",
       body: {
-        original_fileName: Date.now() / 1000 + 2000,
+        original_filename: Date.now() / 1000 + 2000,
         asset_id: "1",
         secure_url: "https://www.google.com",
         metadata: {

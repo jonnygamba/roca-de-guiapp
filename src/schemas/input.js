@@ -5,10 +5,10 @@ export default object({
     const time = new Date(value).getTime();
 
     // TODO: split timestamp and time gap validations.
-    //if (!isNumeric(time)) return false;
-    //if (Date.now() / 1000 - time > 3600) return false;
+    if (!isNumeric(time)) return false;
+    if (Date.now() / 1000 - time > 3600) return false;
 
-    return value;
+    return true;
   }),
   url: string().url().required(),
   description: string().optional(),
