@@ -5,6 +5,7 @@ describe("Cloudinary POST requests", () => {
     }).as("postToNotion");
   });
   it("should create a new input if all fields pass validation", () => {
+    console.log(Date.now() / 1000 + 2000, "lala");
     cy.request({
       method: "POST",
       url: "/api/inputs/cloudinary?database=4b0646182c5f4af09cea65567314260e",

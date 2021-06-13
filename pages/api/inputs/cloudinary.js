@@ -5,13 +5,17 @@ import toNotion from "../../../src/inputs/notion/post";
 
 const middleware = async (req, res, next) => {
   try {
-    const body = await schema.validate({
-      ...req.body,
+    const body = await req.body;
+    console.log(typeof body, "bod");
+    console.log(body.secure_url, "secure");
+    const data = await schema.validate({
+      ...body,
       database: req.query.database,
     });
-    req.body.input = normalize(body);
+    req.body.input = normalize(data);
     next();
   } catch (error) {
+    console.log(error);
     res.status(400).json(error);
     return;
   }
