@@ -1,8 +1,13 @@
 describe("Cloudinary POST requests", () => {
+  beforeEach(() => {
+    cy.intercept("POST", "https://api.notion.com/v1/pages", {
+      test: "test",
+    }).as("postToNotion");
+  });
   it("should create a new input if all fields pass validation", () => {
     cy.request({
       method: "POST",
-      url: "/api/inputs/cloudinary",
+      url: "/api/inputs/cloudinary?database=4b0646182c5f4af09cea65567314260e",
       body: {
         original_fileName: Date.now() / 1000 + 2000,
         asset_id: "1",
@@ -21,7 +26,7 @@ describe("Cloudinary POST requests", () => {
     cy.request({
       failOnStatusCode: false,
       method: "POST",
-      url: "/api/inputs/cloudinary",
+      url: "/api/inputs/cloudinary?database=4b0646182c5f4af09cea65567314260e",
       body: {
         asset_id: "1",
         secure_url: "https://www.google.com",

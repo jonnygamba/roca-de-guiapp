@@ -1,13 +1,12 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import nc from 'next-connect'
-import {zipObject,  paths} from "ramda"
 
 import schema from "../../../src/schemas/cloudinary";
 import toNotion from '../../../src/inputs/notion/post'
 
 const middleware = async (req: NextApiRequest, res: NextApiResponse, next) => {
   try {
-    const body = await schema.validate(req.body) 
+    const body = await schema.validate({...req.body, database: req.query.database}) 
     req.body.input = normalize(body)
     next()
   } catch (error){
@@ -25,6 +24,7 @@ function normalize(data) {
     timestamp: data.originalFileName,
     description: data.metadata.metadataOcr,
     url: data.metadata.metadataUrl,
+    database: data.database,
     initiator: {
       which: 'cloudinary',
       imageUrl: data.secureUrl,

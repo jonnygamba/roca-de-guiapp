@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "test": "jest --watch",
-    "cypress:open": "cypress open",
-    "cypress:run": "cypress run"
+    "cypress:open": "database=test cypress open",
+    "cypress:run": "database=9d4363ce412746978f2d97da9a2a745d cypress run"
   },
   "dependencies": {
     "next": "10.2.3",
