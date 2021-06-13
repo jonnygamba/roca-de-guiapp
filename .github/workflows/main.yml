@@ -24,5 +24,14 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v2
-      - name: Cypress run
-        uses: cypress-io/github-action@v2
+      
+      - name: Start App
+        run: |
+          yarn
+          NODE_ENV=test yarn build
+          NODE_ENV=test yarn start &
+
+      - name: Run E2E
+        run: |
+          yarn test
+      
