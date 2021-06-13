@@ -1,12 +1,35 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import input from "../../../src/schemas/input.js";
+import nc from 'next-connect'
+import {zipObject,  paths} from "ramda"
 
-export default async function (req: NextApiRequest, res: NextApiResponse) {
+import schema from "../../../src/schemas/cloudinary";
+import toNotion from '../../../src/inputs/notion/post'
+
+const middleware = async (req: NextApiRequest, res: NextApiResponse, next) => {
   try {
-    const data = await input.validate(req.body);
-    return res.status(201).json(data);
-  } catch (error) {
-    console.log(error, "error");
-    return res.status(400).json(error);
+    const body = await schema.validate(req.body) 
+    req.body.input = normalize(body)
+    next()
+  } catch (error){
+    res.status(400).json(error)
+    return
   }
 }
+
+const handler = nc().use(middleware).post(toNotion)
+
+export default handler
+
+function normalize(data) {
+  return {
+    timestamp: data.originalFileName,
+    description: data.metadata.metadataOcr,
+    url: data.metadata.metadataUrl,
+    initiator: {
+      which: 'cloudinary',
+      imageUrl: data.secureUrl,
+      id: data.assetId
+    }
+  }
+}
+

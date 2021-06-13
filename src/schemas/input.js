@@ -1,7 +1,7 @@
 import { object, number, string } from "yup";
 
 export default object({
-  id: number().test("is-time-allowed", "Time not allowed", (value) => {
+  timestamp: number().test("is-time-allowed", "Time not allowed", (value) => {
     const time = new Date(value).getTime();
 
     // TODO: split timestamp and time gap validations.
