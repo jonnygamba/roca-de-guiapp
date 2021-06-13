@@ -33,5 +33,5 @@ jobs:
 
       - name: Run E2E
         run: |
-          yarn test
+          yarn cypress:run
       
